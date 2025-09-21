@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Karya Fiksi & Puisi - Interaktif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light">
+  <style>
+    /* Haluskan animasi dan efek kaca */
+    .glass {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .shine::after {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: -50%;
+      width: 50%;
+      height: 300%;
+      transform: rotate(25deg);
+      background: linear-gradient( to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.12) 50%, rgba(255,255,255,0) 100% );
+      animation: shine 4s linear infinite;
+    }
+    @keyframes shine {
+      0% { left: -60%; }
+      100% { left: 120%; }
+    }
+    .chip { transition: transform .15s ease, box-shadow .2s ease; }
+    .chip:active { transform: scale(.98); }
+    .drop-hover { outline: 2px dashed rgba(255,255,255,.6); outline-offset: 4px; }
+    .badge { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-700 via-violet-700 to-fuchsia-600 text-white selection:bg-fuchsia-300 selection:text-fuchsia-900">
+  <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-6 md:mb-10">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl glass grid place-items-center">
+          <!-- Simple book SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-width="1.5" d="M4 6.5A2.5 2.5 0 016.5 4H20v14.5A1.5 1.5 0 0118.5 20H6.5A2.5 2.5 0 014 17.5V6.5z"/>
+            <path stroke-width="1.5" d="M4 6.5A2.5 2.5 0 016.5 4H8v13H6.5A2.5 2.5 0 014 17.5"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-semibold">Belajar Karya Fiksi & Puisi</h1>
+          <p class="text-white/80 text-sm">Interaktif • Ringkas • Menyenangkan</p>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-2 glass rounded-full px-3 py-1.5">
+        <span class="text-xs text-white/70">Mode</span>
+        <button id="contrastToggle" class="text-xs bg-white/10 hover:bg-white/20 px-2 py-1 rounded-full">Kontras+</button>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="glass rounded-2xl p-2 mb-6 md:mb-8">
+      <ul class="grid grid-cols-2 md:flex md:items-center md:gap-2">
+        <li><button data-tab="ringkasan" class="tab-btn w-full px-4 py-2 rounded-xl text-sm md:text-base bg-white/20">Ringkasan</button></li>
+        <li><button data-tab="unsur" class="tab-btn w-full px-4 py-2 rounded-xl text-sm md:text-base hover:bg-white/10">Unsur</button></li>
+        <li><button data-tab="puisi" class="tab-btn w-full px-4 py-2 rounded-xl text-sm md:text-base hover:bg-white/10">Puisi</button></li>
+        <li><button data-tab="majas" class="tab-btn w-full px-4 py-2 rounded-xl text-sm md:text-base hover:bg-white/10">Majas</button></li>
+        <li><button data-tab="latihan" class="tab-btn w-full px-4 py-2 rounded-xl text-sm md:text-base hover:bg-white/10">Latihan</button></li>
+      </ul>
+    </nav>
+
+    <!-- Content -->
+    <main class="space-y-6 md:space-y-8">
+      <!-- Ringkasan -->
+      <section id="ringkasan" class="tab-panel glass rounded-2xl p-5 md:p-8 shine">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <div class="md:w-7/12 space-y-4">
+            <h2 class="text-xl md:text-2xl font-semibold">Apa itu Karya Fiksi?</h2>
+            <p class="text-white/90 leading-relaxed">
+              Karya fiksi adalah karangan yang tidak sepenuhnya berdasarkan kenyataan, melainkan hasil imajinasi penulis. Tujuannya untuk menghibur dan memberi pengalaman estetika bagi pembaca.
+            </p>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="glass rounded-xl p-4">
+                <p class="text-white/80 text-sm">Tujuan utama</p>
+                <p class="font-semibold">Menghibur 📖</p>
+              </div>
+              <div class="glass rounded-xl p-4">
+                <p class="text-white/80 text-sm">Manfaat</p>
+                <p class="font-semibold">Menggugah rasa 💡</p>
+              </div>
+              <div class="glass rounded-xl p-4">
+                <p class="text-white/80 text-sm">Nilai</p>
+                <p class="font-semibold">Pesan moral 🎯</p>
+              </div>
+            </div>
+
+            <details class="glass rounded-xl p-4">
+              <summary class="cursor-pointer font-semibold">Baca tujuan lengkap</summary>
+              <ul class="list-disc list-inside text-white/90 mt-3 space-y-1">
+                <li>Menyampaikan pesan moral, kritik, atau nilai secara tidak langsung.</li>
+                <li>Menggugah perasaan dan imajinasi pembaca.</li>
+                <li>Memberikan hiburan atau pelarian dari realitas.</li>
+              </ul>
+            </details>
+          </div>
+
+          <aside class="md:w-5/12">
+            <div class="glass rounded-2xl p-5 h-full">
+              <h3 class="font-semibold mb-3">Kartu Kilat</h3>
+              <div class="grid grid-cols-2 gap-3" id="flashcards">
+                <!-- Flashcards injected -->
+              </div>
+              <div class="flex justify-end mt-4">
+                <button id="shuffleFlash" class="bg-fuchsia-500 hover:bg-fuchsia-600 px-3 py-2 rounded-lg text-sm">Acak Kartu</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Unsur -->
+      <section id="unsur" class="tab-panel glass rounded-2xl p-5 md:p-8 hidden">
+        <div class="flex flex-col gap-6">
+          <header class="flex items-center justify-between">
+            <h2 class="text-xl md:text-2xl font-semibold">Unsur Karya Fiksi</h2>
+            <div class="flex items-center gap-2">
+              <input id="searchUnsur" type="text" placeholder="Cari unsur..." class="px-3 py-2 rounded-lg bg-white/10 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/60">
+              <span class="text-xs text-white/80 badge" id="unsurCount">0</span>
+            </div>
+          </header>
+
+          <div id="unsurList" class="grid md:grid-cols-2 gap-4">
+            <!-- Cards injected -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Puisi -->
+      <section id="puisi" class="tab-panel glass rounded-2xl p-5 md:p-8 hidden">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <h2 class="text-xl md:text-2xl font-semibold">Pengantar Puisi</h2>
+            <p class="text-white/90">Puisi adalah karya sastra berirama, berima, dan berbait. Bahasa yang digunakan indah serta padat makna.</p>
+
+            <div class="space-y-3">
+              <div class="glass rounded-xl p-4">
+                <p class="font-semibold">Bagian-bagian Puisi</p>
+                <ul class="list-disc list-inside text-white/90 mt-2 space-y-1">
+                  <li>Bait → kumpulan baris</li>
+                  <li>Baris → deretan kata dalam bait</li>
+                  <li>Kata → elemen terkecil</li>
+                  <li>Bunyi → irama dan rima</li>
+                  <li>Makna → pesan atau isi</li>
+                </ul>
+              </div>
+
+              <details class="glass rounded-xl p-4">
+                <summary class="cursor-pointer font-semibold">Contoh Puisi Pendek</summary>
+                <p class="mt-3 text-white/95 leading-relaxed">
+                  Mentari pagi menyapu kaca,<br>
+                  Embun tipis menari pelan;<br>
+                  Hatiku tumbuh di antara senja,<br>
+                  Menyulam rindu dalam diam.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <!-- Pembuat Puisi Sederhana -->
+          <div class="space-y-3">
+            <h3 class="font-semibold">Buat Puisi 4 Baris</h3>
+            <form id="poemForm" class="space-y-3">
+              <div class="grid grid-cols-1 gap-2">
+                <input class="px-3 py-2 rounded-lg bg-white/10 placeholder-white/60" placeholder="Baris 1" required>
+                <input class="px-3 py-2 rounded-lg bg-white/10 placeholder-white/60" placeholder="Baris 2" required>
+                <input class="px-3 py-2 rounded-lg bg-white/10 placeholder-white/60" placeholder="Baris 3" required>
+                <input class="px-3 py-2 rounded-lg bg-white/10 placeholder-white/60" placeholder="Baris 4" required>
+              </div>
+              <div class="flex items-center gap-2">
+                <label class="text-sm text-white/80">Skema Rima:</label>
+                <select id="rhymeScheme" class="px-3 py-2 rounded-lg bg-white/10">
+                  <option value="aabb">aabb</option>
+                  <option value="abab">abab</option>
+                  <option value="aaaa">aaaa</option>
+                  <option value="abcb">abcb</option>
+                </select>
+                <button class="bg-fuchsia-500 hover:bg-fuchsia-600 px-3 py-2 rounded-lg">Cek Rima</button>
+                <button type="button" id="clearPoem" class="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg">Bersihkan</button>
+              </div>
+            </form>
+            <div id="poemResult" class="glass rounded-xl p-4 min-h-[72px]"></div>
+            <p class="text-xs text-white/75">Catatan: Cek rima sederhana berbasis bunyi akhir kata.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Majas -->
+      <section id="majas" class="tab-panel glass rounded-2xl p-5 md:p-8 hidden">
+        <div class="space-y-4">
+          <h2 class="text-xl md:text-2xl font-semibold">Majas dalam Puisi</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="glass rounded-xl p-4">
+              <p class="font-semibold">Personifikasi</p>
+              <p class="text-white/90">Menghidupkan benda mati seolah memiliki sifat manusia.</p>
+              <p class="mt-2 italic text-white/95">Contoh: “Angin berbisik di telinga.”</p>
+            </div>
+            <div class="glass rounded-xl p-4">
+              <p class="font-semibold">Metafora</p>
+              <p class="text-white/90">Membandingkan dua hal secara langsung.</p>
+              <p class="mt-2 italic text-white/95">Contoh: “Ia bunga desa.”</p>
+            </div>
+            <div class="glass rounded-xl p-4">
+              <p class="font-semibold">Hiperbola</p>
+              <p class="text-white/90">Pernyataan yang dilebih-lebihkan.</p>
+              <p class="mt-2 italic text-white/95">Contoh: “Suaranya membelah langit.”</p>
+            </div>
+            <div class="glass rounded-xl p-4">
+              <p class="font-semibold">Perbandingan</p>
+              <p class="text-white/90">Membandingkan dengan “bagai/seperti/laksana”.</p>
+              <p class="mt-2 italic text-white/95">Contoh: “Wajahnya bagai rembulan.”</p>
+            </div>
+          </div>
+
+          <!-- Drag & Drop Cocokkan Majas -->
+          <div class="grid md:grid-cols-2 gap-6 mt-2">
+            <div>
+              <h3 class="font-semibold mb-2">Seret contoh ke jenis majas</h3>
+              <div id="examplesPool" class="flex flex-wrap gap-2">
+                <!-- Draggables injected -->
+              </div>
+            </div>
+            <div>
+              <div class="grid grid-cols-1 gap-3" id="dropZones">
+                <!-- Dropzones injected -->
+              </div>
+              <div class="flex items-center gap-2 mt-3">
+                <button id="checkMajas" class="bg-fuchsia-500 hover:bg-fuchsia-600 px-3 py-2 rounded-lg">Periksa Jawaban</button>
+                <button id="resetMajas" class="bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg">Ulang</button>
+                <span id="majasScore" class="text-sm text-white/90"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Latihan -->
+      <section id="latihan" class="tab-panel glass rounded-2xl p-5 md:p-8 hidden">
+        <div class="space-y-5">
+          <header class="flex items-center justify-between">
+            <h2 class="text-xl md:text-2xl font-semibold">Latihan Cepat</h2>
+            <div class="text-sm text-white/85">Skor: <span id="quizScore" class="badge font-semibold">0</span></div>
+          </header>
+
+          <div id="quizArea" class="space-y-4">
+            <!-- Quiz injected -->
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="submitQuiz" class="bg-fuchsia-500 hover:bg-fuchsia-600 px-4 py-2 rounded-lg">Kumpulkan</button>
+            <button id="retryQuiz" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg hidden">Coba Lagi</button>
+            <span id="quizFeedback" class="text-white/90"></span>
+          </div>
+
+          <details class="glass rounded-xl p-4">
+            <summary class="cursor-pointer font-semibold">Tips Belajar</summary>
+            <ul class="list-disc list-inside mt-3 text-white/90 space-y-1">
+              <li>Baca ulang contoh dan soroti kata kunci.</li>
+              <li>Uji pemahaman dengan membuat satu bait puisi sendiri.</li>
+              <li>Diskusikan unsur intrinsik dari cerita yang kamu suka.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-8 md:mt-12 text-center text-white/80 text-sm">
+      Dibuat oleh Canva Code • Edukasi sastra yang interaktif
+    </footer>
+  </div>
+
+  <script>
+    // Utility: simple helpers
+    const $ = (q, root=document) => root.querySelector(q);
+    const $$ = (q, root=document) => Array.from(root.querySelectorAll(q));
+
+    // Tabs
+    const tabs = $$('.tab-btn');
+    const panels = $$('.tab-panel');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.remove('bg-white/20'));
+        btn.classList.add('bg-white/20');
+        const t = btn.dataset.tab;
+        panels.forEach(p => p.classList.add('hidden'));
+        $('#'+t).classList.remove('hidden');
+        // Focus heading for accessibility
+        const h = $('#'+t).querySelector('h2, h3');
+        if (h) h.setAttribute('tabindex','-1'), h.focus({preventScroll:true});
+      });
+    });
+
+    // Contrast toggle
+    $('#contrastToggle').addEventListener('click', () => {
+      document.body.classList.toggle('contrast');
+      const isOn = document.body.classList.contains('contrast');
+      document.documentElement.style.setProperty('color-scheme', isOn ? 'dark' : 'light');
+      $('#contrastToggle').textContent = isOn ? 'Kontras-' : 'Kontras+';
+    });
+
+    // Flashcards
+    const flashData = [
+      {q:'Karya Fiksi', a:'Karangan imajinatif untuk menghibur.'},
+      {q:'Unsur Intrinsik', a:'Unsur di dalam cerita (tema, tokoh, alur, latar, sudut pandang, amanat).'},
+      {q:'Unsur Ekstrinsik', a:'Faktor luar cerita (penulis, sosial, budaya).'},
+      {q:'Tujuan Fiksi', a:'Menghibur, menggugah, menyampaikan nilai.'},
+    ];
+    const renderFlash = () => {
+      const wrap = $('#flashcards');
+      wrap.innerHTML = '';
+      flashData.forEach((card, idx) => {
+        const el = document.createElement('button');
+        el.className = 'glass rounded-xl p-4 text-left hover:bg-white/10 transition chip';
+        el.innerHTML = `<p class="font-semibold">${card.q}</p><p class="text-white/90 text-sm mt-1 hidden">${card.a}</p>`;
+        el.addEventListener('click', () => {
+          const ans = el.querySelector('p + p');
+          ans.classList.toggle('hidden');
+        });
+        wrap.appendChild(el);
+      });
+    };
+    renderFlash();
+    $('#shuffleFlash').addEventListener('click', () => {
+      for (let i = flashData.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [flashData[i], flashData[j]] = [flashData[j], flashData[i]];
+      }
+      renderFlash();
+    });
+
+    // Unsur list with search
+    const unsurData = [
+      {title:'Tema', desc:'Gagasan atau ide pokok yang mendasari cerita.'},
+      {title:'Tokoh & Penokohan', desc:'Pelaku cerita dan cara penggambaran karakternya.'},
+      {title:'Alur (Plot)', desc:'Rangkaian peristiwa: pengenalan, konflik, klimaks, antiklimaks, penyelesaian.'},
+      {title:'Latar (Setting)', desc:'Waktu, tempat, dan suasana peristiwa.'},
+      {title:'Sudut Pandang', desc:'Cara bercerita: orang pertama (aku) atau orang ketiga (dia/mereka).'},
+      {title:'Amanat', desc:'Pesan moral yang disampaikan penulis.'},
+      {title:'Ekstrinsik', desc:'Latar penulis, kondisi sosial, budaya yang memengaruhi isi.'},
+    ];
+    const renderUnsur = (filter='') => {
+      const list = $('#unsurList');
+      list.innerHTML = '';
+      const items = unsurData.filter(u => (u.title + ' ' + u.desc).toLowerCase().includes(filter.toLowerCase()));
+      items.forEach((u, i) => {
+        const card = document.createElement('div');
+        card.className = 'glass rounded-xl p-4';
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="font-semibold">${u.title}</p>
+              <p class="text-white/90 mt-1">${u.desc}</p>
+            </div>
+            <button class="bg-white/10 hover:bg-white/20 px-2 py-1 rounded-lg text-xs">Contoh</button>
+          </div>
+          <div class="mt-3 hidden text-sm text-white/90">
+            ${exampleForUnsur(u.title)}
+          </div>
+        `;
+        const btn = card.querySelector('button');
+        const box = card.querySelector('div + div');
+        btn.addEventListener('click', () => box.classList.toggle('hidden'));
+        list.appendChild(card);
+      });
+      $('#unsurCount').textContent = items.length.toString().padStart(2,'0');
+    };
+    const exampleForUnsur = (title) => {
+      switch (title) {
+        case 'Tema': return 'Tema persahabatan: dua sahabat mengatasi konflik dan belajar saling percaya.';
+        case 'Tokoh & Penokohan': return 'Tokoh “Raka”, pemberani namun impulsif; “Sita”, tenang dan analitis.';
+        case 'Alur (Plot)': return 'Pengenalan → konflik kehilangan → klimaks pencarian → antiklimaks → penyelesaian.';
+        case 'Latar (Setting)': return 'Di desa pegunungan pada musim kemarau, suasana teduh namun tegang.';
+        case 'Sudut Pandang': return 'Orang pertama: “Aku berjalan menyusuri...”';
+        case 'Amanat': return 'Kejujuran membawa kebaikan pada akhirnya.';
+        default: return 'Contoh pengaruh budaya setempat pada kebiasaan tokoh.';
+      }
+    };
+    renderUnsur();
+    $('#searchUnsur').addEventListener('input', (e) => renderUnsur(e.target.value));
+
+    // Poem checker
+    const lastSound = (line) => {
+      if (!line) return '';
+      const words = line.trim().toLowerCase().replace(/[^a-z\u00C0-\u024f\u1e00-\u1eff\s-]/g,'').split(/\s+/).filter(Boolean);
+      const w = words[words.length-1] || '';
+      // Ambil 2-3 huruf akhir sebagai "bunyi" sederhana
+      const m = w.match(/[a-z\u00C0-\u024f\u1e00-\u1eff]+$/i);
+      const base = (m ? m[0] : w);
+      return base.slice(-3);
+    };
+    const schemeIndex = {
+      aabb: [0,0,1,1],
+      abab: [0,1,0,1],
+      aaaa: [0,0,0,0],
+      abcb: [0,1,2,1]
+    };
+    $('#poemForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const inputs = $$('#poemForm input');
+      const lines = inputs.map(i => i.value);
+      const scheme = $('#rhymeScheme').value;
+      const groups = schemeIndex[scheme];
+      const sounds = lines.map(lastSound);
+      // Bandingkan bunyi per grup
+      const groupSounds = {};
+      let ok = true;
+      for (let i=0;i<lines.length;i++){
+        const g = groups[i];
+        if (!groupSounds[g]) groupSounds[g] = sounds[i];
+        if (sounds[i] && groupSounds[g] && sounds[i] !== groupSounds[g]) ok = false;
+      }
+      // Render
+      const out = $('#poemResult');
+      out.innerHTML = '';
+      lines.forEach((ln, i) => {
+        const span = document.createElement('div');
+        const badge = document.createElement('span');
+        badge.className = 'ml-2 text-xs px-2 py-0.5 rounded-full bg-white/10';
+        badge.textContent = sounds[i] ? `...${sounds[i]}` : '—';
+        span.textContent = ln;
+        span.appendChild(badge);
+        out.appendChild(span);
+      });
+      const note = document.createElement('div');
+      note.className = 'mt-3 text-sm';
+      note.textContent = ok ? 'Rima sesuai skema ✅' : 'Rima belum konsisten dengan skema ❗';
+      out.appendChild(note);
+    });
+    $('#clearPoem').addEventListener('click', () => {
+      $$('#poemForm input').forEach(i => i.value = '');
+      $('#poemResult').innerHTML = '';
+    });
+
+    // Drag & Drop Majas
+    const majasTypes = [
+      {id:'personifikasi', label:'Personifikasi'},
+      {id:'metafora', label:'Metafora'},
+      {id:'hiperbola', label:'Hiperbola'},
+      {id:'perbandingan', label:'Perbandingan'},
+    ];
+    const majasExamples = [
+      {id:'ex1', text:'Angin berbisik di telinga.', type:'personifikasi'},
+      {id:'ex2', text:'Ia adalah bunga desa.', type:'metafora'},
+      {id:'ex3', text:'Suaranya menggelegar membelah langit.', type:'hiperbola'},
+      {id:'ex4', text:'Wajahnya cantik bagai rembulan.', type:'perbandingan'},
+    ];
+    const renderMajas = () => {
+      const pool = $('#examplesPool');
+      pool.innerHTML = '';
+      majasExamples.forEach(ex => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.draggable = true;
+        b.dataset.id = ex.id;
+        b.className = 'chip bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg text-left';
+        b.textContent = ex.text;
+        b.addEventListener('dragstart', (e)=> {
+          e.dataTransfer.setData('text/plain', ex.id);
+          setTimeout(()=> b.classList.add('opacity-50'), 0);
+        });
+        b.addEventListener('dragend', ()=> b.classList.remove('opacity-50'));
+        pool.appendChild(b);
+      });
+
+      const zones = $('#dropZones');
+      zones.innerHTML = '';
+      majasTypes.forEach(t => {
+        const wrap = document.createElement('div');
+        wrap.className = 'glass rounded-xl p-3';
+        wrap.innerHTML = `
+          <div class="flex items-center justify-between">
+            <p class="font-semibold">${t.label}</p>
+            <button type="button" class="text-xs bg-white/10 hover:bg-white/20 px-2 py-1 rounded-lg">Kosongkan</button>
+          </div>
+          <div class="mt-2 min-h-[52px] rounded-lg bg-white/5 p-2 flex flex-wrap gap-2" data-zone="${t.id}"></div>
+        `;
+        const target = $('div[data-zone]', wrap);
+        const clearBtn = $('button', wrap);
+        clearBtn.addEventListener('click', () => {
+          // Kembalikan semua chip ke pool
+          $$( '[data-zone="'+t.id+'"] .chip', wrap).forEach(chip => {
+            $('#examplesPool').appendChild(chip);
+          });
+        });
+        // DnD events
+        target.addEventListener('dragover', (e)=> { e.preventDefault(); target.classList.add('drop-hover'); });
+        target.addEventListener('dragleave', ()=> target.classList.remove('drop-hover'));
+        target.addEventListener('drop', (e)=> {
+          e.preventDefault();
+          target.classList.remove('drop-hover');
+          const id = e.dataTransfer.getData('text/plain');
+          const chip = $('[data-id="'+id+'"]');
+          if (chip) target.appendChild(chip);
+        });
+        zones.appendChild(wrap);
+      });
+      $('#majasScore').textContent = '';
+    };
+    renderMajas();
+
+    $('#checkMajas').addEventListener('click', () => {
+      let correct = 0;
+      majasTypes.forEach(t => {
+        const zone = $('[data-zone="'+t.id+'"]');
+        const chips = $$('.chip', zone);
+        chips.forEach(chip => {
+          const ex = majasExamples.find(e => e.id === chip.dataset.id);
+          const good = ex && ex.type === t.id;
+          chip.classList.toggle('bg-emerald-500/30', good);
+          chip.classList.toggle('bg-rose-500/30', !good);
+          if (good) correct++;
+        });
+      });
+      $('#majasScore').textContent = `Benar: ${correct}/${majasExamples.length}`;
+    });
+    $('#resetMajas').addEventListener('click', renderMajas);
+
+    // Quiz
+    const quizData = [
+      {
+        q: 'Tujuan utama karya fiksi adalah...',
+        options: ['Mencatat fakta ilmiah', 'Menghibur pembaca', 'Melaporkan peristiwa', 'Mempromosikan produk'],
+        a: 1
+      },
+      {
+        q: 'Alur biasanya TIDAK mencakup...',
+        options: ['Klimaks', 'Pengenalan', 'Penyelesaian', 'Metode ilmiah'],
+        a: 3
+      },
+      {
+        q: 'Contoh majas perbandingan adalah...',
+        options: ['Angin berbisik', 'Ia bunga desa', 'Wajahnya cantik bagai rembulan', 'Langkahnya mengguncang dunia'],
+        a: 2
+      },
+      {
+        q: 'Sudut pandang “aku” disebut...',
+        options: ['Orang pertama', 'Orang kedua', 'Orang ketiga mahatahu', 'Netral'],
+        a: 0
+      }
+    ];
+    const renderQuiz = () => {
+      const area = $('#quizArea');
+      area.innerHTML = '';
+      quizData.forEach((it, idx) => {
+        const card = document.createElement('div');
+        card.className = 'glass rounded-xl p-4';
+        card.innerHTML = `
+          <p class="font-semibold mb-2">#${idx+1}. ${it.q}</p>
+          <div class="grid gap-2">
+            ${it.options.map((op, i) => `
+              <label class="flex items-center gap-2 bg-white/5 hover:bg-white/10 rounded-lg px-3 py-2 cursor-pointer">
+                <input type="radio" name="q${idx}" value="${i}" class="accent-fuchsia-500">
+                <span>${op}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        area.appendChild(card);
+      });
+      $('#quizFeedback').textContent = '';
+      $('#quizScore').textContent = '0';
+      $('#retryQuiz').classList.add('hidden');
+      $('#submitQuiz').disabled = false;
+    };
+    renderQuiz();
+
+    $('#submitQuiz').addEventListener('click', () => {
+      let score = 0;
+      quizData.forEach((it, idx) => {
+        const sel = $(`input[name="q${idx}"]:checked`);
+        const chosen = sel ? parseInt(sel.value, 10) : -1;
+        if (chosen === it.a) score++;
+      });
+      $('#quizScore').textContent = String(score);
+      $('#quizFeedback').textContent = score === quizData.length ? 'Sempurna! 🎉' : 'Coba cek lagi bagian yang ragu.';
+      // Highlight correct/incorrect
+      quizData.forEach((it, idx) => {
+        const options = $$(`input[name="q${idx}"]`);
+        options.forEach((opt, i) => {
+          const label = opt.closest('label');
+          label.classList.remove('ring-2','ring-emerald-400','ring-rose-400');
+          if (i === it.a) label.classList.add('ring-2','ring-emerald-400');
+          if (opt.checked && i !== it.a) label.classList.add('ring-2','ring-rose-400');
+          opt.disabled = true;
+        });
+      });
+      $('#retryQuiz').classList.remove('hidden');
+      $('#submitQuiz').disabled = true;
+    });
+    $('#retryQuiz').addEventListener('click', renderQuiz);
+
+    // Accessibility: keyboard drag fallback - click to move between pool and first empty zone
+    $('#examplesPool').addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      const firstZone = $('[data-zone]');
+      if (firstZone) firstZone.appendChild(chip);
+    });
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98280d6497fd3fa6',t:'MTc1ODQ0MTg3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
